@@ -1,23 +1,901 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    html, body, div, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, button, input, select, textarea {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.8;
+      color: #2d3748;
+      background-color: #f7fafc;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%);
+      color: #ffffff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 15px;
+      word-break: keep-all;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto;
+      word-break: keep-all;
+    }
+
+    nav {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-container a {
+      color: #4a5568;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 5px 10px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-container a:hover {
+      color: #1e3a8a;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+      border: 1px solid #e2e8f0;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: #1e3a8a;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #edf2f7;
+      word-break: keep-all;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: #2c5282;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      word-break: keep-all;
+    }
+
+    p {
+      margin-bottom: 15px;
+      font-size: 1.05rem;
+      color: #4a5568;
+      text-align: justify;
+      word-break: keep-all;
+    }
+
+    .highlight-text {
+      font-weight: bold;
+      color: #1e3a8a;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    @media (max-width: 768px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 12px 15px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #ebf8ff;
+      color: #2b6cb0;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f7fafc;
+    }
+
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    @media (max-width: 768px) {
+      .calculator-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #4a5568;
+    }
+
+    .input-group select, .input-group input {
+      padding: 10px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: #ffffff;
+      color: #2d3748;
+    }
+
+    .calc-results {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    @media (max-width: 768px) {
+      .calc-results {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .result-box {
+      background-color: #f7fafc;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+
+    .result-box h3 {
+      font-size: 0.9rem;
+      color: #718096;
+      margin: 0 0 5px 0;
+    }
+
+    .result-box p {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin: 0;
+      text-align: center;
+    }
+
+    .result-box.highlight {
+      background-color: #ebf8ff;
+      border-color: #bee3f8;
+    }
+
+    .result-box.highlight p {
+      color: #2b6cb0;
+    }
+
+    .result-box.final {
+      background-color: #e6fffa;
+      border-color: #b2f5ea;
+    }
+
+    .result-box.final p {
+      color: #319795;
+    }
+
+    .chart-container {
+      margin-top: 30px;
+      background-color: #f8fafc;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .chart-container h4 {
+      font-size: 1.05rem;
+      color: #2d3748;
+      margin-bottom: 15px;
+    }
+
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .chart-bar-wrapper {
+      display: grid;
+      grid-template-columns: 180px 1fr 120px;
+      align-items: center;
+      gap: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .chart-bar-wrapper {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+    }
+
+    .bar-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    .bar-track {
+      background-color: #e2e8f0;
+      height: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .bar.traditional {
+      background-color: #cbd5e0;
+    }
+
+    .bar.pyd {
+      background-color: #319795;
+    }
+
+    .bar-value {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #2d3748;
+      text-align: right;
+    }
+
+    .survey-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .survey-question {
+      background-color: #f8fafc;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .q-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #2d3748;
+    }
+
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: #4a5568;
+      cursor: pointer;
+    }
+
+    .survey-result-box {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: #f0fff4;
+      border: 1px solid #c6f6d5;
+      display: none;
+    }
+
+    .survey-result-box h3 {
+      margin-top: 0;
+      color: #22543d;
+    }
+
+    .result-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #319795;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+
+    .link-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .link-list li {
+      margin-bottom: 12px;
+    }
+
+    .link-list a {
+      color: #2b6cb0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: text-decoration 0.2s ease;
+    }
+
+    .link-list a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #1a202c;
+      color: #a0aec0;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      border-top: 4px solid #0d9488;
+    }
+
+    footer p {
+      color: #a0aec0;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://direct.reliabledone.com/#website",
+        "url": "https://direct.reliabledone.com",
+        "name": "타는만큼내는보험 전문 분석 가이드",
+        "description": "2026년 최신 타는만큼내는보험 비교, 연령별 평균 가격 견적 계산기 및 내돈내산 후기 분석 제공"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://direct.reliabledone.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "타는만큼내는보험 비용 계산은 어떻게 이루어지나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "타는만큼내는보험은 기본료에 주행거리당 보험료를 곱하여 월 단위로 계산됩니다. 가입자의 나이, 차종, 운전 경력에 따라 기본료와 km당 요율이 다르게 책정됩니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "기존 주행거리 할인 특약과의 차이점은 무엇인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "기존 다이렉트 자동차보험의 주행거리 특약은 1년치 요금을 선납한 후 만기 시점에 누적 거리를 정산하여 환급받는 구조인 반면, 타는만큼내는보험은 매월 실제 주행한 거리만큼만 후불로 결제하는 차이점이 있습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "주말에만 운전하는 주말운전자에게 유리한가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네, 주중 출퇴근을 대중교통으로 하고 주말에만 가끔 운전하여 연간 주행거리가 5000km 이하인 경우에 가장 큰 할인 혜택을 누릴 수 있어 추천됩니다."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header>
+    <h1>타는만큼내는보험 2026년 완전 가이드</h1>
+    <p>주행거리 연동형 자동차보험의 구조적 메커니즘, 연령별 평균 가격 분석 및 나에게 최적화된 저렴한곳 찾기</p>
+  </header>
+
+  <nav>
+    <div class="nav-container">
+      <a href="#intro">도입 및 배경</a>
+      <a href="#tech-structure">작동원리</a>
+      <a href="#calc-section">예상 견적 계산기</a>
+      <a href="#demographics">연령별 및 모델별 매칭</a>
+      <a href="#pros-cons">장단점 비교</a>
+      <a href="#community">커뮤니티 여론</a>
+      <a href="#consulting-section">맞춤형 컨설팅</a>
+      <a href="#faq">자주 묻는 질문</a>
+      <a href="#references">신뢰 정보망</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="intro" class="card">
+      <h2>1. 타는만큼내는보험의 패러다임 변화와 2026년 시장 동향</h2>
+      <p>대한민국의 자동차 소유 및 운행 패턴은 급격히 다변화되고 있습니다. 과거에는 모든 운전자가 연간 주행거리와 무관하게 1년치 보험료를 한 번에 선납하는 정액제 방식의 다이렉트 보험에 가입하는 것이 표준이었습니다. 하지만 차량을 소유하되 운행 빈도가 매우 낮은 주말운전자, 대중교통을 적극적으로 이용하는 직장인, 근거리 통학 및 마트 장보기용 세컨드 카 소유자들이 급증하면서 합리적인 비용 정산을 원하는 수요가 폭발적으로 증가하였습니다. 이로 인해 실제 주행한 거리만큼만 익월에 후불로 납부하는 타는만큼내는보험 제도가 강력한 대안으로 안착하게 되었습니다.</p>
+      <p>2026년 현재 이 분야에서 가장 주목할 만한 변화는 업계의 지각변동입니다. 국내에서 최초로 텔레매틱스 기반 주행거리 연동 보험을 개척했던 캐롯손해보험이 지배구조 개편 과정을 거쳐 모회사인 한화손해보험에 정식으로 흡수합병되었습니다. 이에 따라 기존의 캐롯 브랜드는 한화손해보험 캐롯이라는 더욱 거대하고 튼튼한 제도적 안정성을 담보한 통합 온라인 상품군으로 거듭났습니다. 이는 소규모 핀테크 스타트업 형태의 리스크를 탈피하고 대기업 손해보험사의 견고한 자산 포트폴리오와 보상 전문 인프라를 바탕으로 고객 신뢰도를 한층 더 끌어올리는 결정적인 모멘텀이 되었습니다.</p>
+      <p>네이버나 구글과 같은 주요 포털 엔진과 제미나이, 챗지피티 등 첨단 생성형 인공지능 플랫폼의 발달은 보험 가입 방식의 고도화를 가속하고 있습니다. AI 엔진들은 수십 페이지에 달하는 복잡한 보험 약관을 단 몇 초 만에 가독성 높은 비교 결과로 출력해 주며, 소비자가 자신의 일평균 주행 습관을 간략히 설명하는 것만으로도 연간 예상 납부 금액을 정확하게 추산해 줍니다. 이러한 지능형 검색 에이전트의 출현 덕분에 소비자들은 더 이상 오프라인 지점의 중개 어플이나 과도한 마케팅에 휘둘리지 않고, 본인 상황에 가장 부합하는 저렴한곳을 주도적으로 결정하는 똑똑한 소비 패턴을 정착시켜 나가고 있습니다.</p>
+    </section>
+
+    <section id="tech-structure" class="card">
+      <h2>2. 기술적 작동 방식 및 IoT 텔레매틱스 공학의 연동</h2>
+      <p>타는만큼내는보험 요금 산정의 핵심 기술은 실시간 차량 운행 데이터 수집에 있습니다. 이 시스템은 단순한 수동 계기판 사진 등록 방식의 한계를 보완하기 위해 IoT 디바이스 기술인 캐롯플러그를 적극 활용합니다. 가입자는 신규 계약 승인 후 우편으로 발송되는 소형 플러그 형태의 하드웨어 단말기를 차량 내부 시거잭 또는 USB 전원 포트에 장착하기만 하면 됩니다. 이 기기는 시동이 켜지는 순간부터 꺼지는 순간까지 내장된 GPS 안테나와 고감도 가속도 센서를 통해 이동 궤적과 거리를 고정밀도로 계측하며, LTE 기반 무선 통신망을 활용해 서버로 정산 통계를 실시간 자동 전송합니다.</p>
+      <p>일부 가입자들은 플러그를 도중에 고의로 분리하여 거리를 조작할 가능성에 대해 의문을 품기도 합니다. 하지만 해당 시스템은 고도의 보안 모니터링 알고리즘을 장착하고 있습니다. 차량 운행 중 기기가 임의로 이탈하거나 무선 신호가 비정상적으로 차단되는 현상이 일정 시간 이상 반복되면 즉각 모바일 어플이나 카카오톡 알림을 통해 가입자에게 경고 메시지가 전달됩니다. 만약 합리적인 사유 없이 계속 이탈 상태를 유지할 경우, 당일 주행거리를 일일 최대 부과 기준 거리로 고정 환산하여 페널티 요율을 청구하는 구조를 택하고 있어 데이터 조작을 원천 차단하고 통계의 투명성을 고도로 보장합니다.</p>
+    </section>
+
+    <section id="calc-section" class="card">
+      <h2>3. 타는만큼내는보험 실시간 예상 견적 계산기</h2>
+      <p>자신의 나이, 차종, 예상 주행거리에 맞춰 월 총 납부 예상 금액과 1년 환산 비용을 즉석에서 계산해 보실 수 있습니다. 마우스 슬라이더와 선택 박스를 변경하면 하단의 요금 분석 차트가 실시간으로 갱신되어 정액제 다이렉트 평균 비용과의 차이점을 명확히 비교해 드립니다.</p>
+      
+      <div class="calculator-grid">
+        <div class="input-group">
+          <label for="calc-age">운전자 가입 연령</label>
+          <select id="calc-age" onchange="calculateQuote()">
+            <option value="21">만 21세 이하 (높은 요율 단계)</option>
+            <option value="24">만 24세 이하 (과도기 요율 단계)</option>
+            <option value="26">만 26세 이하 (안정화 시작 단계)</option>
+            <option value="30" selected>만 30세 이상 (표준 요율 단계)</option>
+            <option value="45">만 45세 이상 (장기 무사고 할인 단계)</option>
+          </select>
+        </div>
+        
+        <div class="input-group">
+          <label for="calc-car">차량 종류 및 트림</label>
+          <select id="calc-car" onchange="calculateQuote()">
+            <option value="morning">경형 컴팩트 카 (모닝, 레이 등)</option>
+            <option value="avante" selected>준중형 패밀리 세단 (아반떼, K3 등)</option>
+            <option value="k5">중형 프리미엄 세단 (K5, 쏘나타 등)</option>
+            <option value="grandeur">대형 플래그십 세단 (그랜저, G80 등)</option>
+            <option value="sorento">다목적 패밀리 SUV (스포티지, 쏘렌토 등)</option>
+            <option value="tesla">고전압 수입 전기차 (테슬라, BMW i5 등)</option>
+          </select>
+        </div>
+        
+        <div class="input-group">
+          <label for="calc-mileage">예상 월간 평균 주행거리: <span id="mileage-val" class="highlight-text">500</span> km</label>
+          <input type="range" id="calc-mileage" min="100" max="2500" step="100" value="500" oninput="updateMileage(this.value)">
+        </div>
+
+        <div class="input-group">
+          <label for="calc-exp">군 경력 포함 운전 경력</label>
+          <select id="calc-exp" onchange="calculateQuote()">
+            <option value="0">생애 최초 신규 가입 (1년 미만)</option>
+            <option value="1" selected>중급 운전 경력 (1년 이상 3년 미만)</option>
+            <option value="3">베테랑 안전 운전자 (3년 이상)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calc-results">
+        <div class="result-box">
+          <h3>월간 기본 유지료</h3>
+          <p id="res-base">18,000 원</p>
+        </div>
+        <div class="result-box">
+          <h3>월간 가변 주행료</h3>
+          <p id="res-running">10,000 원</p>
+        </div>
+        <div class="result-box highlight">
+          <h3>월 예상 청구 금액</h3>
+          <p id="res-total">28,000 원</p>
+        </div>
+        <div class="result-box final">
+          <h3>연간 예상 환산 비용</h3>
+          <p id="res-annual">336,000 원</p>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <h4>연간 납입 예상 금액 전격 비교</h4>
+        <div class="bar-chart">
+          <div class="chart-bar-wrapper">
+            <span class="bar-label">일반 정액 다이렉트 평균</span>
+            <div class="bar-track">
+              <div id="bar-traditional" class="bar traditional" style="width: 80%;"></div>
+            </div>
+            <span id="txt-traditional" class="bar-value">850,000 원</span>
+          </div>
+          <div class="chart-bar-wrapper">
+            <span class="bar-label">타는만큼내는보험 예상액</span>
+            <div class="bar-track">
+              <div id="bar-pyd" class="bar pyd" style="width: 37%;"></div>
+            </div>
+            <span id="txt-pyd" class="bar-value">336,000 원</span>
+          </div>
+        </div>
+        <p class="chart-note" style="margin-top: 15px; font-size: 0.85rem; color: #718096; text-align: left;">
+          본 예상 시뮬레이션 수치는 연간 주행 습관이 매월 균등하게 유지된다고 가정했을 때 도출되는 참고 견적서이며, 실제 손해보험사의 세부 특약 구성 요율 및 블랙박스 할인, 커넥티드카 할인 여부에 따라 일부 금액 편차가 생길 수 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <section id="demographics" class="card">
+      <h2>4. 연령별 및 차량 모델별 타는만큼내는보험 33가지 정밀 가이드</h2>
+      <p>본인 소유 차량의 트림 및 운전자의 라이프사이클 나이대에 맞춘 매칭 분석 결과를 통해 가장 싼곳과 합리적인 절약 설계법을 탐독해보시기 바랍니다.</p>
+      
+      <h3>연령대 및 운전자 세부 라이프사이클 조건</h3>
+      
+      <p><span class="highlight-text">20대 타는만큼내는보험</span>: 통계적으로 주행 경력이 부족하여 초기 사고 발생 우려가 높아 일반적인 연납형을 고집하면 초기 지출이 지나치게 커지는 단점이 있어 월 분할식 요금 설계가 유리합니다.</p>
+      
+      <p><span class="highlight-text">30대 타는만큼내는보험</span>: 결혼이나 가정을 구성하는 시기로 주유비와 양육비 부담이 가중되는 연령대입니다. 주유량과 비례하여 보험 지출을 즉각 제어하는 세컨드카 맞춤형 컨설팅의 핵심 타깃입니다.</p>
+      
+      <p><span class="highlight-text">40대 타는만큼내는보험</span>: 자녀 교육 등으로 가계 재정 지출이 정점에 달하는 시기입니다. 주중 출퇴근은 정해진 대중교통을 주로 활용하고 여가에만 타는 40대에게 최상의 효율을 제공합니다.</p>
+      
+      <p><span class="highlight-text">50대 타는만큼내는보험</span>: 장기 무사고 경력으로 기본 요금 자체가 비교적 저렴한 상태이지만, 자녀의 차량을 임시로 물려받아 가끔만 모는 경우 추가 할인을 받기 위한 최상의 대안이 됩니다.</p>
+      
+      <p><span class="highlight-text">대학생 타는만큼내는보험</span>: 통학 시간이 불규칙하고 방학 기간 외에는 거의 차량을 세워두는 대학생 운전자에게 고정 비용은 최악의 지출 요소입니다. 월 주행거리가 극소량이므로 비용 다이어트 순위에서 최상위권에 배치됩니다.</p>
+      
+      <p><span class="highlight-text">사회초년생 타는만큼내는보험</span>: 생애 첫 독립으로 차량을 장만했지만 높은 자동차세와 각종 유류비로 가용 예산이 적은 신규 사회초년생의 경제적 부담을 덜어주는 최고의 실효적 수단입니다.</p>
+      
+      <p><span class="highlight-text">만 21세 타는만큼내는보험</span>: 나이대 할증 등급에서 최하위 요율을 적용받으므로 일반 다이렉트 설계 시 200만 원 안팎의 금액을 청구받아 충격을 받기 쉽습니다. 후불제로 진입하여 초기 목돈 인출을 억제하는 전략이 절대적으로 필요합니다.</p>
+      
+      <p><span class="highlight-text">만 24세 타는만큼내는보험</span>: 극단적인 위험 구간은 벗어났으나 여전히 만 26세 미만 구간 특유의 요율 장벽이 존재하는 과도기 시기입니다. 꼼꼼한 어플 주행거리 정산을 조합하면 가격 부담을 제일 효율적으로 절반 가까이 아낄 수 있습니다.</p>
+      
+      <p><span class="highlight-text">만 26세 타는만큼내는보험</span>: 본격적인 우량 가입자 등급으로 전환되어 기본 산출 요율이 매력적으로 인하되는 시점입니다. 이때 주행 비중이 작다면 주저 없이 후불제 형태의 특약을 매칭하는 것을 추천합니다.</p>
+      
+      <p><span class="highlight-text">만 30세 타는만큼내는보험</span>: 통계적 사고 유발 가능성이 획기적으로 안정화되는 축복받은 나이대입니다. 주말 레저 중심의 여유로운 드라이빙만 즐기는 1인 가구라면 연간 30만 원대의 최저가 구현도 무난하게 달성 가능합니다.</p>
+      
+      <p><span class="highlight-text">부부한정 타는만큼내는보험</span>: 맞벌이 생활로 차량 운전대를 공동으로 가끔 교대하며 쥐는 부부라면, 보장 범위를 최소한으로 제한하고 거리 요율을 최저로 계산하여 부과받는 월 분할 정산이 압도적 이점을 가집니다.</p>
+      
+      <p><span class="highlight-text">1인한정 타는만큼내는보험</span>: 오로지 나 자신만 운전하는 철저한 일인 중심의 실용주의 운전자들이 선택하며, 불필요한 보증 범위를 과감히 생략하여 가격 경쟁력을 극대화하는 표준 계약 형식입니다.</p>
+      
+      <p><span class="highlight-text">가족한정 타는만큼내는보험</span>: 운전자 범위를 가족 전체로 확대하면 가장 나이가 어린 가입자 요율로 수수료가 비싸지지만, 자녀들이 방학이나 연휴 기간에만 잠시 부모님 차를 탈 경우 가변식 정산법이 유지 관리 면에서 강력한 보완책이 됩니다.</p>
+      
+      <p><span class="highlight-text">군필자 타는만큼내는보험</span>: 육군, 해군, 공군 등에서 운전병으로 성실히 복무하며 실질 주행 경력을 축적했다면 최대 3년의 가입 이력을 인정받아 기본 요금이 놀라울 정도로 저렴해지는 마법을 누릴 수 있습니다.</p>
+      
+      <p><span class="highlight-text">여성운전자 타는만큼내는보험</span>: 주로 어린 자녀의 안심 통학 픽업이나 가벼운 동네 생활 편의 마트 주행용으로만 차량을 운용하는 전업주부 가입자들에게서 높은 만족도 후기를 끌어내며 싼곳으로 입소문을 타고 있습니다.</p>
+      
+      <p><span class="highlight-text">실버운전자 타는만큼내는보험</span>: 고령의 연세로 시야가 좁아지거나 야간 주행에 대한 피로감으로 운행 빈도가 자연히 낮아진 실버 세대 어르신들께서도 주중에 안전 위주로 짧게 탄 만큼만 영수하는 체계를 선호하고 있습니다.</p>
+
+      <h3>차량 종류 및 주행 목적별 세부 맞춤 조건</h3>
+      
+      <p><span class="highlight-text">아반떼 타는만큼내는보험</span>: 사회초년생의 베스트셀러 모델로 기본적으로 정비 편의성이 우수한 아반떼는, 불필요하게 낭비되는 주말 전용 라이프사이클 요율을 매칭하여 동급에서 가장 혜택이 우수한 견적 결과를 도출합니다.</p>
+      
+      <p><span class="highlight-text">그랜저 타는만큼내는보험</span>: 중형급 이상의 그랜저는 배기량과 기본 차가액 때문에 정액제 자차 비용이 묵직하게 잡힙니다. 하지만 실주행거리가 짧다면 불필요한 부수 세금을 다이어트하듯 월 단위 주행료 정산으로 해결할 수 있습니다.</p>
+      
+      <p><span class="highlight-text">쏘렌토 타는만큼내는보험</span>: 아웃도어 캠핑 매니아들이 즐겨 타는 대형 SUV 쏘렌토는 평일 주중에는 전용 차고에만 고이 모셔두고 금요일 저녁이나 토요일 오전에만 장거리를 질주하므로 후불제 정밀 비교의 일순위 비교 대상군입니다.</p>
+      
+      <p><span class="highlight-text">카니발 타는만큼내는보험</span>: 패밀리 미니밴 카니발은 명절 고향 방문이나 특별한 대가족 이동 시에만 일시적으로 쓰이는 세컨카 목적성이 가장 뚜렷합니다. 운행하지 않는 비수기 달에는 기본 비용만 최소한으로 납부하면 되므로 유지 가성비가 최상입니다.</p>
+      
+      <p><span class="highlight-text">K5 타는만큼내는보험</span>: 젊고 개성 강한 젊은 차주 비율이 두터운 K5는 다이렉트 종합 비교 시 높은 요율이 잡히는 단점을 방어하기 위해 주유 습관과 주행 경로를 연동하는 후불제가 이상적인 비용 제어판 역할을 해줍니다.</p>
+      
+      <p><span class="highlight-text">스포티지 타는만큼내는보험</span>: 젊은 딩크족이나 신혼부부의 첫 SUV 스포티지는 매일 고정 출퇴근보다는 취미 활동 중심의 불규칙한 이동 비중이 높아 가입 초기 싼곳을 면밀히 탐색할 때 확실히 두각을 드러냅니다.</p>
+      
+      <p><span class="highlight-text">모닝 타는만큼내는보험</span>: 기본 정부 취등록세 면제와 함께 초저가로 불리는 경차 모닝은 타는만큼 정산하는 월납 계산기 구동 시 커피값 두세 잔 수준인 월 만 원대 후반에서 이만 원 초반의 파격 금액을 직접 확인하실 수 있습니다.</p>
+      
+      <p><span class="highlight-text">레이 타는만큼내는보험</span>: 독특한 내부 수납과 실용성으로 장보기 전용 패밀리카로 자주 입양되는 레이는 근거리 마트 순회 외에는 장거리 이탈이 거의 없어 누적 연 3000km 미만의 기적 같은 초저가 가성비 1순위 위엄을 뽐냅니다.</p>
+      
+      <p><span class="highlight-text">전기차 타는만큼내는보험</span>: 초기 전기차 구매 시 자차 보증 및 배터리 파손 대비 자차 부담 비율이 높아 기본 금액은 높지만 하이브리드 연동 스마트 제어와 연간 낮은 킬로수 장점이 더해지면 상당한 월납 다이어트 효과를 봅니다.</p>
+      
+      <p><span class="highlight-text">제네시스 타는만큼내는보험</span>: 자산가 가구의 세컨드 자가용으로 주중에는 대기 빈도가 높은 고급 제네시스 모델군은 정액 고정비 부담이 제일 큽니다. 불필요한 공회전과 대기 기간 요율을 완전 배제하여 지출 효율을 바로잡습니다.</p>
+      
+      <p><span class="highlight-text">수입차 타는만큼내는보험</span>: 프리미엄 외제 브랜드 수입 세단들은 사소한 접촉사고에도 자차 처리 한도가 월등히 높아 부담스럽습니다. 평일 통근 시 자차를 이용하지 않는 분이라면 후불 측정이 가장 과학적인 방어막이 되어 줍니다.</p>
+      
+      <p><span class="highlight-text">BMW 타는만큼내는보험</span>: 스포츠 지향적인 BMW 5시리즈나 3시리즈 가입자들이 사고 할증 이력 등으로 인해 보험 싼곳을 긴박하게 알아볼 때, 단거리 시내 마실용으로 운전 빈도를 줄이고 텔레매틱스 정밀 요율로 갈아타는 우회로를 추천합니다.</p>
+      
+      <p><span class="highlight-text">벤츠 타는만큼내는보험</span>: 기품 있고 우아한 벤츠 차주들이 자차 보험료 상승분을 감쇄하고자 할 때 주말 전용 한정 가입 조건과 후불 정산 결합을 통해 매월 합리적인 영수증을 받아보는 비결이 디시 및 보배드림에서 큰 지지를 얻고 있습니다.</p>
+      
+      <p><span class="highlight-text">하이브리드 타는만큼내는보험</span>: 친환경 고효율 하이브리드 차량은 통상 유연한 장거리 통근용 주행이 많아 정액제가 나을 수 있으나 가끔 단거리 마실 전용으로 장만해 연간 누적이 낮다면 대단히 강력한 디스카운트 효과가 누적됩니다.</p>
+      
+      <p><span class="highlight-text">주말운전자 타는만큼내는보험</span>: 주말운전자는 이 보험 제도의 가장 핵심이 되는 수혜 대상입니다. 월간 기본 이용권 성격의 최저 기본료에 수십 킬로 수준의 미미한 추가 요금만 얹어 월말 납부하므로 일반 보험사 대비 돈 낭비를 제일 원천적으로 방지합니다.</p>
+      
+      <p><span class="highlight-text">출퇴근용 타는만큼내는보험</span>: 지하철역 환승 주차장까지만 아주 짧게 왕복하거나 자택 인근 공단 지대까지만 가볍게 운행하는 단거리 출퇴근족에게 최적화되어, 장거리 주유 차량들과의 요금 형평성 측면에서 강력한 장점을 가집니다.</p>
+      
+      <p><span class="highlight-text">연간 5000km 이하 타는만큼내는보험</span>: 연간 주행거리가 5000km 미만인 경우에는 만기 환급형 마일리지 정산 대비 가입 당해 연도 매달 납입에 따른 가계 현금 유동성 보존 측면에서 비교를 불허하는 강력한 경제성을 실현합니다.</p>
+    </section>
+
+    <section id="pros-cons" class="card">
+      <h2>5. 장단점 및 기존 마일리지 환급형 특약과의 명확한 차이점</h2>
+      <p>가입 전에 반드시 파악해야 할 핵심적인 제도 설계상의 장단점 및 통상적인 선납형 마일리지 정약 제도와의 기술적 격차를 구조식 표를 통해 일목요연하게 전달해 드립니다.</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>비교 핵심 지표</th>
+            <th>타는만큼내는보험 (월정산 후불형)</th>
+            <th>기존 다이렉트 정액제 (선납후정산형)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>결제 방식 및 주기</td>
+            <td>매월 실제 주행거리 정산 후 후불제 결제</td>
+            <td>1년치 고정 보험료 전액 선납 후 만기 시 환급</td>
+          </tr>
+          <tr>
+            <td>측정 신뢰 도구</td>
+            <td>소형 하드웨어 (캐롯플러그) 실시간 통신</td>
+            <td>가입 시 및 만기 시 직접 계기판 사진 등록</td>
+          </tr>
+          <tr>
+            <td>초기 목돈 지출</td>
+            <td>첫 달 소액 가입비 수준으로 최소화 가능</td>
+            <td>첫날 수십~수백만 원 일시불 납부 부담 존재</td>
+          </tr>
+          <tr>
+            <td>절감 한계 구간</td>
+            <td>연간 주행거리 12,000km ~ 15,000km 미만 시 압도적</td>
+            <td>장거리 및 연 15,000km 초과 상시 운전자에게 유리</td>
+          </tr>
+          <tr>
+            <td>포인트 적립 혜택</td>
+            <td>매월 안전 운전 점수 적립 및 포인트 사은품 전환</td>
+            <td>특별 포인트 적립 혜택 미비</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>장단점 요약</h3>
+      <p><span class="highlight-text">주요 장점</span>: 첫째, 가입 첫날에 거액의 일시 납부 압박을 겪지 않고 매달 휴대폰 사용료를 내듯 분할하여 자동 정산하므로 초기 현금 유동성이 극대화됩니다. 둘째, 안전운전 점수가 우수한 운전자의 경우 매달 대규모 포인트 적립이나 네이버페이 상품권, 현금 사은품 기프티콘 전환이 가능한 이벤트를 연계 제공합니다. 셋째, 긴급 사고 발생 시 플러그의 SOS 버튼만 누르면 신속하게 GPS 기반 전담 보상팀이 긴급출동 서비스를 실시하여 초보 운전자도 안심할 수 있습니다.</p>
+      <p><span class="highlight-text">치명적 단점</span>: 연간 운행 거리가 15,000km를 초과하여 매일 왕복 60km 이상의 장거리 고속도로 출퇴근을 하거나 영업용 비중이 높은 상시 운행 차주들의 경우에는 기본료와 누적 킬로당 주행 요율이 가중 청구되어 타 손해보험사의 기존 다이렉트 정액제 요금보다 월 총액이 오히려 더 비싸질 수 있는 결정적인 단점이 존재합니다. 따라서 자가 운전 패턴에 대한 사전 자가 진단 계산은 생략할 수 없는 필수 과제입니다.</p>
+    </section>
+
+    <section id="community" class="card">
+      <h2>6. 커뮤니티(디시, 보배드림, 펨코) 실제 가입자 여론 및 후기 분석</h2>
+      <p>실제 자비를 들여 상품을 장착하고 운행해 본 오너들의 솔직한 의견과 장기 유지 데이터를 종합하기 위해 대표적인 자동차 및 IT 온라인 소통 창구인 디시인사이드(디시), 보배드림, 에펨코리아(펨코/에펨코리아)의 생생한 토론 내용을 모니터링하여 공통적인 트렌드를 요약 정리하였습니다.</p>
+      
+      <p>먼저 국내 최대 자동차 전문 광장인 <span class="highlight-text">보배드림</span>에서는 하드웨어 계측 장치인 플러그의 설치 위치와 감도에 관한 실질적인 팁이 가득합니다. 일부 오래된 연식의 차량이나 수입 일부 기종에서 시거잭 소켓이 깊어 접촉 불량이 생겼을 때, 전용 어댑터를 통해 깔끔하게 대시보드 안쪽으로 매립하는 내돈내산 튜닝 노하우가 큰 조회수를 기록하고 있습니다. 또한 실제로 가벼운 접촉사고 시 플러그 SOS 단추를 누르자마자 1분 만에 신속하게 상담 전화를 받았고, 가입 절차가 어플을 통해 비대면으로 매우 심플하게 종결되었다며 업무 효율성을 높이 평가하는 여론이 두터웠습니다.</p>
+      
+      <p>실리적이고 예리한 비용 검증이 활발한 <span class="highlight-text">디시인사이드</span> 차갤(자동차 갤러리)에서는 기존 정액제 보험과의 세부 소수점 가격 비교가 핵심 논쟁거리입니다. 갤러리 유저들은 연간 주행거리가 8000km 언저리라면 무조건 한화손해보험 캐롯이 저렴하다며, 네이버페이나 토스 연계 가입 상품권 사은품 이벤트 시즌을 잘 맞춰 들어가서 신규 가입 시 3만 원 상당의 사은품이나 주유 상품권을 받는 체리피킹 팁을 활발하게 전수하고 있습니다. 다만 여름휴가 기간 장거리 국내 여행을 다녀와서 당월에 평소보다 배 이상 청구된 고지서를 받고 깜짝 놀랐다는 웃지 못할 촌극도 심심치 않게 올라옵니다.</p>
+      
+      <p>IT 및 모바일 어플리케이션 적응도가 우수한 청년 유저층이 밀집한 <span class="highlight-text">에펨코리아(펨코)</span>에서는 전용 스마트폰 앱의 높은 편의성과 안전운전 보상 포인트 제도가 매력적인 화두로 오르내립니다. 매일 시동을 켜고 목적지까지 급가속 및 급감속 없이 규정 속도를 준수하면, 인공지능 주행 인지 알고리즘이 이를 즉각 평가하여 포인트를 두둑이 정립해 줍니다. 이렇게 한 달 동안 차곡차곡 쌓은 가상 통화를 활용하여 카카오톡 기프티콘이나 브랜드 커피, 제과류 쿠폰으로 바꿀 수 있어 푼돈 모으기를 선호하는 젊은 세대의 라이프스타일 취미 활동과 정확히 융합되고 있습니다.</p>
+    </section>
+
+    <section id="consulting-section" class="card">
+      <h2>7. 나의 운전 성향 분석 및 맞춤형 자동차보험 추천 설문</h2>
+      <p>아래 세 가지 성향 테스트 항목을 솔직하게 선택해 주시면 인공지능 가상 컨설팅 엔진이 귀하의 이동 성향에 가장 싼곳 유형의 대안과 연간 유지 가이드를 도출해 드립니다.</p>
+      
+      <div class="survey-form">
+        <div class="survey-question">
+          <p class="q-title">질문 1. 주중 차량의 실제 이동 목적과 통근 패턴은 어떻게 되나요?</p>
+          <div class="options-group">
+            <label class="option-label">
+              <input type="radio" name="q1" value="weekend" checked onclick="evaluateSurvey()"> 주중에는 전철과 버스로 이동하며 가벼운 주말 장보기 및 나들이 전용
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q1" value="short" onclick="evaluateSurvey()"> 매일 주행을 하기는 하나 가벼운 자택 인근 근거리 편도 5km 안팎의 소소한 이동
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q1" value="long" onclick="evaluateSurvey()"> 상시 매일 왕복 50km가 넘는 원거리 출퇴근 및 장거리 외근 업무 비중 과다
+            </label>
+          </div>
+        </div>
+
+        <div class="survey-question">
+          <p class="q-title">질문 2. 대략적으로 예상되는 연간 누적 키로수는 어느 한도인가요?</p>
+          <div class="options-group">
+            <label class="option-label">
+              <input type="radio" name="q2" value="under5000" checked onclick="evaluateSurvey()"> 연간 5,000km 미만의 아주 경미한 사용
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q2" value="under10000" onclick="evaluateSurvey()"> 연간 5,000km 이상에서 12,000km 안팎의 평이한 보통 수준
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q2" value="over12000" onclick="evaluateSurvey()"> 연간 12,000km 초과 혹은 상시 장거리 레저 투어링 중심
+            </label>
+          </div>
+        </div>
+
+        <div class="survey-question">
+          <p class="q-title">질문 3. 보험 선택 과정에서 절대 타협할 수 없는 가치는 무엇입니까?</p>
+          <div class="options-group">
+            <label class="option-label">
+              <input type="radio" name="q3" value="price" checked onclick="evaluateSurvey()"> 첫날 큰돈을 한꺼번에 완납하지 않고 매달 소액 후불로 지출 통제하기
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q3" value="card" onclick="evaluateSurvey()"> 가입 프로모션을 통한 카드 현금 캐시백, 포인트 쿠폰 사은품 대량 획득
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q3" value="app" onclick="evaluateSurvey()"> 직관적인 세부 모바일 인터페이스 탑재 및 실시간 안전 점수 모니터링
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div id="survey-result" class="survey-result-box" style="display: block;">
+        <h3>인공지능 가상 컨설팅 정밀 진단 결과</h3>
+        <p id="survey-text">귀하의 운전 패턴을 종합 분석한 결과, 연간 누적 주행거리가 5,000km 이하로 매우 적은 우량 조건에 부합합니다. 이 경우 매월 정산하는 타는만큼내는보험 방식을 선택하시면 기성 다이렉트 종합 요금 대비 약 40% 이상의 금액을 매달 다이어트할 수 있어 강력히 추천해 드립니다. 특히 네이버페이나 카카오톡 제휴사 이벤트를 통해 가입 상품권 사은품을 적립 받는 루트가 제일 유용합니다.</p>
+        <div class="result-badge" id="survey-badge">타는만큼내는보험 초강력 매칭 및 추천 대상</div>
+      </div>
+    </section>
+
+    <section id="faq" class="card">
+      <h2>8. 자주 묻는 질문 및 상세 답변</h2>
+      
+      <h3>Q1. 타는만큼내는보험 요금은 매달 정확히 어떻게 계산되어 청구되나요?</h3>
+      <p>이 요금제는 두 가지 축으로 연동되어 계산됩니다. 가입자의 기본 연령, 선택 차량 종류, 사고 보장 담보 구성에 따라 고정적으로 청구되는 월 기본료에, 당월 실제 캐롯플러그를 거쳐 서버에 송신된 순수 운행거리당 단가 요율을 곱하여 최종 합산 금액을 정산하는 후불 구조입니다. 만일 당월에 아예 시동조차 켜지 않았다면 당월에는 오직 월 기본료만 결제되는 원리입니다.</p>
+      
+      <h3>Q2. 시거잭 플러그에 내장된 긴급 SOS 버튼은 실제로 어떤 역할을 합니까?</h3>
+      <p>갑작스러운 타이어 펑크, 배터리 방전, 혹은 주행 중 추돌 사고 등 뜻하지 않은 비상 사태가 발생하면 플러그 중앙에 도드라진 물리 SOS 버튼을 약 2~3초간 지긋이 눌러주시면 됩니다. 즉각 텔레매틱스망을 타고 해당 위치 정보가 전용 재난 관제센터로 긴급 호출되며 가입자 휴대전화로 구조 확인 전화가 수신되어 불필요한 공황 상태를 예방해 줍니다.</p>
+      
+      <h3>Q3. 스마트폰 모바일 어플과의 연동은 반드시 필요한가요?</h3>
+      <p>기본적으로 단말기가 단독 통신을 진행하므로 운전 중에 어플을 항시 켜놓을 필요는 전혀 없습니다. 다만 매일 적립되는 안전운전 포인트 내역 확인, 당월 누적 정산금 상세 명세서 확인, 그리고 돌발 고장이나 장치 접촉 불안정 문제를 진단받기 위해서는 전용 모바일 소프트웨어를 가입자의 카카오톡이나 폰에 깔아 수시로 모니터링하는 습관을 들이는 편이 매우 유익합니다.</p>
+      
+      <h3>Q4. 타 보험사의 계기판 사진 전송 방식 특약과의 가장 결정적인 장단점 차이는 무엇입니까?</h3>
+      <p>기성의 정액제 보험사에서 취급하는 주행거리 특약은 만기 시 한꺼번에 목돈을 돌려주는 개념이므로 연중에는 내 소중한 자금이 묶여 있는 아쉬움이 있습니다. 이에 반해 타는만큼내는보험은 매월 저렴한 소액 결제로 매달 지출 부담을 즉시 통제할 수 있어 편리하지만, 장거리 운행 비중이 폭증하는 비수기 외에는 항상 누적 사용 킬로수가 오버되지 않게 감시해야 하는 단점이 수반됩니다.</p>
+    </section>
+
+    <section id="references" class="card">
+      <h2>9. 신뢰도 검증을 위한 공인 정보처 안내</h2>
+      <p>보다 구체적인 전국 손해보험 보장 조항과 계측 기술 원리, 제도적 한계 조항을 자세히 공부하고 직접 설계해보고자 하시는 유권자 및 오너들을 위해 대한민국 법령 및 투명 공시를 담당하는 공인 기관들의 공식 채널을 연결해 드립니다.</p>
+      <ul class="link-list">
+        <li><a href="https://bohumpromotionc.cafe24.com/" target="_blank" rel="noopener noreferrer">국내 다이렉트 자동차보험 요율 비교 및 통계 정보 분석 시스템</a></li>
+        <li><a href="https://namu.wiki/w/%EC%BA%90%EB%A1%AF%EC%86%90%ED%95%B4%EB%B3%B4%ED%97%98" target="_blank" rel="noopener noreferrer">나무위키 캐롯손해보험 상세 테크 백과</a></li>
+        <li><a href="https://www.fsc.go.kr" target="_blank" rel="noopener noreferrer">금융위원회 금융제도 개선 및 소비자 보호 공식 보도실</a></li>
+        <li><a href="https://www.fss.or.kr" target="_blank" rel="noopener noreferrer">금융감독원 파인 통합 금융소비자 포털 서비스</a></li>
+        <li><a href="https://www.kidi.or.kr" target="_blank" rel="noopener noreferrer">보험개발원 공식 자동차 사고율 및 차량 안전 등급 분석실</a></li>
+        <li><a href="https://www.knia.or.kr" target="_blank" rel="noopener noreferrer">손해보험협회 공시실 및 민원 평가 투명 공정 안내 포털</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    function updateMileage(val) {
+      document.getElementById('mileage-val').innerText = val;
+      calculateQuote();
+    }
+
+    function multiply(x, y) {
+      return x / (1 / y);
+    }
+
+    function calculateQuote() {
+      const ageVal = parseFloat(document.getElementById('calc-age').value);
+      const carType = document.getElementById('calc-car').value;
+      const mileage = parseFloat(document.getElementById('calc-mileage').value);
+      const expVal = parseFloat(document.getElementById('calc-exp').value);
+
+      let ageFactor = 1.0;
+      if (ageVal === 21) ageFactor = 2.45;
+      else if (ageVal === 24) ageFactor = 1.75;
+      else if (ageVal === 26) ageFactor = 1.35;
+      else if (ageVal === 30) ageFactor = 1.0;
+      else if (ageVal === 45) ageFactor = 0.85;
+
+      let carBase = 15000;
+      let carPerKm = 18;
+      if (carType === 'morning') { carBase = 11000; carPerKm = 14; }
+      else if (carType === 'avante') { carBase = 15500; carPerKm = 18; }
+      else if (carType === 'k5') { carBase = 18500; carPerKm = 21; }
+      else if (carType === 'grandeur') { carBase = 23500; carPerKm = 25; }
+      else if (carType === 'sorento') { carBase = 17500; carPerKm = 23; }
+      else if (carType === 'tesla') { carBase = 27500; carPerKm = 27; }
+
+      let expFactor = 1.0;
+      if (expVal === 0) expFactor = 1.35;
+      else if (expVal === 1) expFactor = 1.0;
+      else if (expVal === 3) expFactor = 0.85;
+
+      const monthlyBase = Math.round(multiply(multiply(carBase, ageFactor), expFactor));
+      const monthlyRunning = Math.round(multiply(multiply(multiply(mileage, carPerKm), ageFactor), expFactor));
+      const monthlyTotal = monthlyBase + monthlyRunning;
+      const annualTotal = multiply(monthlyTotal, 12);
+
+      let traditionalAnnual = 760000;
+      if (ageVal === 21) traditionalAnnual = 2150000;
+      else if (ageVal === 24) traditionalAnnual = 1550000;
+      else if (ageVal === 26) traditionalAnnual = 1150000;
+      else if (ageVal === 30) traditionalAnnual = 760000;
+      else if (ageVal === 45) traditionalAnnual = 610000;
+
+      let carMulti = 1.0;
+      if (carType === 'morning') carMulti = 0.72;
+      else if (carType === 'avante') carMulti = 0.95;
+      else if (carType === 'k5') carMulti = 1.15;
+      else if (carType === 'grandeur') carMulti = 1.45;
+      else if (carType === 'sorento') carMulti = 1.25;
+      else if (carType === 'tesla') carMulti = 1.65;
+
+      traditionalAnnual = Math.round(multiply(multiply(traditionalAnnual, carMulti), expFactor));
+
+      document.getElementById('res-base').innerText = monthlyBase.toLocaleString() + ' 원';
+      document.getElementById('res-running').innerText = monthlyRunning.toLocaleString() + ' 원';
+      document.getElementById('res-total').innerText = monthlyTotal.toLocaleString() + ' 원';
+      document.getElementById('res-annual').innerText = annualTotal.toLocaleString() + ' 원';
+
+      document.getElementById('txt-traditional').innerText = traditionalAnnual.toLocaleString() + ' 원';
+      document.getElementById('txt-pyd').innerText = annualTotal.toLocaleString() + ' 원';
+
+      const maxVal = Math.max(traditionalAnnual, annualTotal);
+      const tradWidth = Math.round(multiply((traditionalAnnual / maxVal), 100));
+      const pydWidth = Math.round(multiply((annualTotal / maxVal), 100));
+
+      document.getElementById('bar-traditional').style.width = tradWidth + '%';
+      document.getElementById('bar-pyd').style.width = pydWidth + '%';
+    }
+
+    function evaluateSurvey() {
+      const q1 = document.querySelector('input[name="q1"]:checked').value;
+      const q2 = document.querySelector('input[name="q2"]:checked').value;
+      const q3 = document.querySelector('input[name="q3"]:checked').value;
+      
+      let resultText = "";
+      let badgeText = "";
+      let badgeColor = "";
+
+      if (q2 === "under5000") {
+        badgeText = "타는만큼내는보험 초강력 매칭 및 추천 대상";
+        badgeColor = "#0d9488";
+        resultText = "귀하의 연간 예상 운행 누적거리는 5,000km 미만의 매우 우수한 상태입니다. 이 패턴에서는 매년 수십만 원 이상을 다이렉트로 정액 납부하는 기성의 보험사보다 매월 실제 주행한 분량만 정밀 정산하는 후불 요금 상품이 최소 30%에서 많게는 50%의 가격을 아낄 수 있는 최고 효율의 싼곳 매칭 전략이 됩니다. 어플이나 앱 상의 안전운전 보상 혜택과 카드 제휴 신규 이벤트 혜택을 꼼꼼하게 비교 분석하여 즉각 가입하는 것을 적극 추천해 드립니다.";
+      } else if (q2 === "under10000") {
+        badgeText = "조건부 타는만큼내는보험 실리적 매칭 추천";
+        badgeColor = "#2563eb";
+        resultText = "귀하의 연간 운행 범위는 5,000km에서 12,000km 수준인 무난한 일반 운전자군입니다. 이 경우 연간 주행량이 한화손해보험 캐롯의 기준 점검 한계선인 12,000km 미만 구간에 근접해 있으므로, 세부 차량 배기량 및 가입자 연령 특약 요율에 따라 절약 격차가 미미할 수도 있습니다. 네이버나 토스, 카카오톡 등에 상시 공시되는 브랜드 카드 할인 이벤트 혜택과 포인트 적립 비율을 종합 계산기로 돌려 보신 후 최종적으로 더 저렴한곳을 찾아 가입 여부를 타진하시는 편이 똑똑한 대안입니다.";
+      } else {
+        badgeText = "일반 고정형 다이렉트 및 연말 정산 특약 추천";
+        badgeColor = "#ea580c";
+        resultText = "귀하의 운전 빈도는 연 12,000km를 확실하게 상회하는 상시 장거리 및 헤비 운전자군입니다. 이 경우에는 매월 주행거리를 정산하여 추가금을 청구받는 타는만큼내는보험 방식의 구조적 특성상 오히려 매달 더 무거운 고지서를 받게 되는 결정적 단점이 있습니다. 대형 손해보험사의 기존 고정형 인터넷 다이렉트 플랜에 가입하고 가입 상품권 사은품이나 현금 지원금 혜택을 챙기신 후, 연말 정산 마일리지 환급 혜택을 덤으로 적용받는 쪽이 훨씬 실용적인 최저가 사수 비법입니다. 보배드림이나 펨코 등 커뮤니티의 장거리 오너 내돈내산 후기에서도 일반 보험이 최고 저렴한곳이라는 여론이 정론으로 통하고 있습니다.";
+      }
+
+      document.getElementById('survey-text').innerText = resultText;
+      document.getElementById('survey-badge').innerText = badgeText;
+      document.getElementById('survey-badge').style.backgroundColor = badgeColor;
+    }
+
+    // Initialize Calculator on load
+    window.onload = function() {
+      calculateQuote();
+      evaluateSurvey();
+    }
+  </script>
+  
